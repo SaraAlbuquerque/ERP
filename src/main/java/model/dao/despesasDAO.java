@@ -4,7 +4,6 @@
  */
 package model.dao;
 
-
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,25 +14,25 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.bean.usuario;
+import model.bean.despesas;
 
 /**
  *
  * @author SARA
  */
-public class usuarioDAO {
-
-    public void create(usuario u){
+public class despesasDAO {
+    
+    
+    public void create(despesas d){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
             
         try {
-            stmt = con.prepareStatement("INSERT INTO usuario (userName, userPassword, recoveryAnswer, recoveryEmail) VALUES (?,?,?,?)");
-            stmt.setString(1, u.getUserName());
-            stmt.setString(2, u.getPassword());
-            stmt.setString(3, u.getRecoveryAnswer());
-            stmt.setString(4, u.getRecoveryEmail());
+            stmt = con.prepareStatement("INSERT INTO despesas (expenseAmount, spendOnDate, note) VALUES (?,?,?)");
+            stmt.setBigDecimal(1, d.getExpenseAmount());
+            stmt.setDate(2, d.getSpendOnDate());
+            stmt.setString(3, d.getNote());
             
             stmt.executeUpdate();
             
@@ -46,29 +45,28 @@ public class usuarioDAO {
         }
     }
     
-    public List<usuario> read(){
+    public List<despesas> read(){
         
         
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            List<usuario> usuarios = new ArrayList();
+            List<despesas> despesasList = new ArrayList();
             
         try {
-            stmt = con.prepareStatement("SELECT * FROM usuario");
+            stmt = con.prepareStatement("SELECT * FROM despesas");
             rs = stmt.executeQuery();
             
             while(rs.next()){
                 
-                usuario user = new usuario();
+                despesas d = new despesas();
                 
-                user.setUserId(rs.getInt("userId"));
-                user.setUserName(rs.getString("userName"));
-                user.setPassword(rs.getString("password"));
-                user.setRecoveryAnswer(rs.getString("recoveryAnswer"));
-                user.setRecoveryEmail(rs.getString("recoveryEmail"));
+                d.setExpenseId(rs.getInt("expenseId"));
+                d.setExpenseAmount(rs.getBigDecimal("expenseAmount"));
+                d.setSpendOnDate(rs.getDate("spendOnDate"));
+                d.setNote(rs.getString("note"));
                 
-                usuarios.add(user);
+                despesasList.add(d);
             }
             
         } catch (SQLException ex) {
@@ -77,21 +75,20 @@ public class usuarioDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
-        return usuarios;
+        return despesasList;
     }
-        
-    public void update(usuario u){
+    
+    public void update(despesas d){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
             
         try {
-            stmt = con.prepareStatement("UPDATE usuario SET userName = ?, userPassword = ?, recoveryAnswer = ?, recoveryEmail = ? WHERE userId = ?");
-            stmt.setString(1, u.getUserName());
-            stmt.setString(2, u.getPassword());
-            stmt.setString(3, u.getRecoveryAnswer());
-            stmt.setString(4, u.getRecoveryEmail());
-            stmt.setInt(5, u.getUserId());
+            stmt = con.prepareStatement("UPDATE usuario SET expenseAmount = ?, spendOnDate = ?, note = ? WHERE expenseId = ?");
+            stmt.setBigDecimal(1, d.getExpenseAmount());
+            stmt.setDate(2, d.getSpendOnDate());
+            stmt.setString(3, d.getNote());
+            stmt.setInt(4, d.getExpenseId());
             
             stmt.executeUpdate();
             
@@ -103,15 +100,15 @@ public class usuarioDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-       public void delete(usuario u){
+        
+    public void delete(despesas d){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
             
         try {
-            stmt = con.prepareStatement("DELETE FROM usuario WHERE userId = ?");
-            stmt.setInt(1, u.getUserId());
+            stmt = con.prepareStatement("DELETE FROM despesas WHERE expenseId = ?");
+            stmt.setInt(1, d.getExpenseId());
             
             stmt.executeUpdate();
             

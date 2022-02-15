@@ -17,4 +17,38 @@ public class despesas {
     private BigDecimal expenseAmount;
     private Date spendOnDate;
     private String note;
+
+    public int getExpenseId() {
+        return expenseId;
+    }
+
+    public void setExpenseId(int expenseId) {
+        this.expenseId = expenseId;
+    }
+
+    public BigDecimal getExpenseAmount() {
+        return expenseAmount;
+    }
+
+    public void setExpenseAmount(BigDecimal expenseAmount) {
+        this.expenseAmount = expenseAmount;
+    }
+
+    public Date getSpendOnDate() {
+        return spendOnDate;
+    }
+
+    public void setSpendOnDate(Date spendOnDate) {
+        this.spendOnDate = spendOnDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+    
+    
 }
