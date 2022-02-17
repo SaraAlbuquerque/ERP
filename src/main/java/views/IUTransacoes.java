@@ -40,6 +40,9 @@ public class IUTransacoes extends javax.swing.JFrame {
         modelo.setNumRows(0);
         transacaoDAO dao = new transacaoDAO();
         String tipo;
+        BigDecimal g = null;
+        BigDecimal d = null;
+        BigDecimal total = null;
 
         for (transacao t : dao.readForUser(user)) {
 
@@ -47,6 +50,8 @@ public class IUTransacoes extends javax.swing.JFrame {
 
             if (t.getIsIncome()) {
                 tipo = "Entrada";
+                 g.add(t.getNetAmount());
+                total.add(t.getNetAmount());
             } else {
                 tipo = "Saída";
             }
@@ -117,6 +122,12 @@ public class IUTransacoes extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTransacoes = new javax.swing.JTable();
+        txtGanhos = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtDesp = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -274,13 +285,45 @@ public class IUTransacoes extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblTransacoes);
 
+        txtGanhos.setEditable(false);
+        txtGanhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGanhosActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Ganhos  R$");
+
+        jLabel5.setText("Despesas  R$");
+
+        txtDesp.setEditable(false);
+
+        txtTotal.setEditable(false);
+
+        jLabel6.setText("Total  R$");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtGanhos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDesp, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -288,7 +331,14 @@ public class IUTransacoes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtGanhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDesp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -436,16 +486,14 @@ public class IUTransacoes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBuscaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void txtGanhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGanhosActionPerformed
+
         
         
-        java.awt.EventQueue.invokeLater(() -> {
-            new IUTransacoes().setVisible(true);
-        });
-    }
+    }//GEN-LAST:event_txtGanhosActionPerformed
+
+ 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -458,6 +506,9 @@ public class IUTransacoes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -466,6 +517,9 @@ public class IUTransacoes extends javax.swing.JFrame {
     private javax.swing.JTable tblTransacoes;
     private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtDesp;
+    private javax.swing.JTextField txtGanhos;
+    private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
